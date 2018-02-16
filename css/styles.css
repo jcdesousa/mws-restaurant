@@ -148,6 +148,7 @@ nav h1 a {
     height: 50px;
     background-color: #3397DB;
     align-items: center;
+    display: flex;
 }
 
 .filter-options h2 {
