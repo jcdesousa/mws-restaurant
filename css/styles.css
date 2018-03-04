@@ -338,7 +338,6 @@ nav h1 a {
     position: relative;
     width: 85%;
     border-top-left-radius: 25px;
-
 }
 
 #reviews-list li p {
@@ -351,37 +350,42 @@ nav h1 a {
 
 
 /* ====================== Breakpoints ====================== */
-
-  @media screen and (min-width: 1000px) {
+@media screen and (min-width: 1000px) {
     #breadcrumb {
-      width: calc(50% - 80px);
+        width: calc(50% - 80px);
     }
+
     .inside #map-container {
-      background: blue none repeat scroll 0 0;
-      height: 100%;
-      position: fixed;
-      right: 0;
-      top: 80px;      
-      width: 50%;
-      margin-top: 0;
+        background: blue none repeat scroll 0 0;
+        height: 100%;
+        position: fixed;
+        right: 0;
+        top: 80px;      
+        width: 50%;
+        margin-top: 0;
     }
+
     .inside #map {
-      background-color: #ccc;
-      height: 100%;
-      width: 100%;
-      height: 100%;
+        background-color: #ccc;
+        height: 100%;
+        width: 100%;
+        height: 100%;
     }
+
     .inside #footer {
         width: calc(50% - 50px);
     }
+
     #restaurant-container {
-      width: 50%;
-      margin-top: 130px;
+        width: 50%;
+        margin-top: 130px;
     }
+
     #reviews-container {
-      width: 50%; 
+        width: 50%; 
     }
+
     #reviews-list li {
-      width: 90%;
+        width: 90%;
     }
-  }
+}
