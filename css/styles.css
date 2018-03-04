@@ -59,7 +59,6 @@ footer,
 header,
 hgroup,
 menu,
-nav,
 section {
     display: block;
 }
@@ -86,6 +85,7 @@ nav {
     height: 80px;
     background-color: #252831;
     text-align: center;
+    display: flex;
 }
 
 nav h1 {
@@ -106,7 +106,7 @@ nav h1 a {
     background-color: #eee;
     font-size: 17px;
     margin: 0;
-    width: calc(50% - 80px);
+    width: 100%;
 }
 
 /* Display list items side by side */
@@ -247,11 +247,8 @@ nav h1 a {
 
 .inside #map-container {
     background: blue none repeat scroll 0 0;
-    height: 100%;
-    position: fixed;
-    right: 0;
-    top: 80px;
-    width: 50%;
+    margin-top: 130px;
+    height: 400px;
 }
 
 .inside #map {
@@ -279,6 +276,7 @@ nav h1 a {
 
 #restaurant-img {
     width: 90%;
+    border-top-left-radius: 25px;
 }
 
 #restaurant-address {
@@ -303,12 +301,11 @@ nav h1 a {
 #reviews-container {
     border-bottom: 1px solid #d9d9d9;
     border-top: 1px solid #fff;
-    padding: 140px 40px 30px;
-    width: 50%;
-}
-
-#reviews-container {
-    padding: 30px 40px 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 40px;
 }
 
 #reviews-container h2 {
@@ -319,9 +316,15 @@ nav h1 a {
     padding-bottom: 1pt;
 }
 
+/* ====================== Reviews List ====================== */
+
 #reviews-list {
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-flow: column;
+    list-style: none;
+    padding: 10px;
+    font-size: 1.2em;
+    align-items: center;
 }
 
 #reviews-list li {
@@ -334,6 +337,8 @@ nav h1 a {
     padding: 0 20px 20px;
     position: relative;
     width: 85%;
+    border-top-left-radius: 25px;
+
 }
 
 #reviews-list li p {
@@ -343,3 +348,40 @@ nav h1 a {
 #restaurant-hours td {
     color: #666;
 }
+
+
+/* ====================== Breakpoints ====================== */
+
+  @media screen and (min-width: 1000px) {
+    #breadcrumb {
+      width: calc(50% - 80px);
+    }
+    .inside #map-container {
+      background: blue none repeat scroll 0 0;
+      height: 100%;
+      position: fixed;
+      right: 0;
+      top: 80px;      
+      width: 50%;
+      margin-top: 0;
+    }
+    .inside #map {
+      background-color: #ccc;
+      height: 100%;
+      width: 100%;
+      height: 100%;
+    }
+    .inside #footer {
+        width: calc(50% - 50px);
+    }
+    #restaurant-container {
+      width: 50%;
+      margin-top: 130px;
+    }
+    #reviews-container {
+      width: 50%; 
+    }
+    #reviews-list li {
+      width: 90%;
+    }
+  }
