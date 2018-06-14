@@ -31,11 +31,12 @@ $ npm run build
 ```
 
 ### Server
+To compress and serve static content. Make sure you run stage-2 project on port `1337`
 ```
 $ npm run server
 ```
 
-With your server running, visit the site: [localhost:8000](http://localhost:8000/) to access the app.
+With your server running, visit the site: [localhost:4000](http://localhost:4000/) to access the app.
 
 <a name="contributors"></a>
 Contributors
