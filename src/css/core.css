@@ -178,17 +178,4 @@ nav h1 a {
     .inside #footer {
         width: calc(50% - 50px);
     }
-
-    #restaurant-container {
-        width: 50%;
-        margin-top: 130px;
-    }
-
-    #reviews-container {
-        width: 50%; 
-    }
-
-    #reviews-list li {
-        width: 90%;
-    }
 }
