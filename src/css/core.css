@@ -79,9 +79,12 @@ section {
 }
 
 #map-placeholder {
-    background: url('../assets/images/map-placeholder.jpg?size=600');
+    background: url('../assets/images/map-placeholder-2.jpg?size=1280');
     height: 400px;
     width: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
 }
 
 

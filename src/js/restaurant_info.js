@@ -1,4 +1,4 @@
-/* global window, document, google */
+/* global window, document */
 import '../css/restaurant.css';
 import { GoogleMapsLoader } from './bundle';
 import DBHelper from './dbhelper';

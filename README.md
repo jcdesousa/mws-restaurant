@@ -5,30 +5,34 @@ Restaurant Reviews web app for Mobile Web Specialist Certification Course. This 
 <a name="instalation"></a>
 ## Installation
 
-Clone the GitHub repository. If you don't have Python installed, navigate to Python's [website](https://www.python.org/)  to download and install the software.
+Clone the GitHub repository.
 
 ```
 $ git clone https://github.com/jcdesousa/mws-restaurant-stage-1
 $ cd mws-restaurant-stage-1
+$ npm install
 ```
 
 <a name="usage"></a>
 ## Usage
 
-In a terminal, check the version of Python you have:
+### Development
+In development, just run:
 
 ```
-$ python -V
+$ npm start
 ```
 
-If you have Python 2.x run the following command, you can also specify other port if port 8000 is already in use.
+
+### Production
+In production run:
 ```
-$ python -m SimpleHTTPServer 8000
+$ npm run build
 ```
 
-For Python 3.x, you can use:
+### Server
 ```
-$ python3 -m http.server 8000
+$ npm run server
 ```
 
 With your server running, visit the site: [localhost:8000](http://localhost:8000/) to access the app.
