@@ -7,9 +7,8 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 const staticDir = './dist';
 
-app.use(serveStatic(staticDir));
-
 app.use(expressStaticGzip(staticDir, { enableBrotli: true, maxAge: '1y', index: false }));
 
+app.use(serveStatic(staticDir));
 
 app.listen(PORT);
