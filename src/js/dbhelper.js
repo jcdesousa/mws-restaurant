@@ -1,4 +1,7 @@
 /* global google, fetch */
+import IdbService from './idb-service';
+
+const appDb = new IdbService();
 /**
  * Common database helper functions.
  */
@@ -36,7 +39,7 @@ export default class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    return `${DBHelper.url}:${DBHelper.port}/restaurants`;
+    return `${DBHelper.url}:${DBHelper.port}/restaurants1`;
   }
 
   /**
@@ -47,15 +50,19 @@ export default class DBHelper {
       .then((response) => {
         if (response.status === 200) {
           response.json().then((json) => {
+            appDb.saveRestaurants(json);
             callback(null, json);
           }).catch((error) => {
             callback(error, null);
           });
         } else {
-          callback((`Request failed. ${response.status}`), null);
+          throw new Error(`Request failed. ${response.status}`);
         }
-      }).catch((error) => {
-        callback(error, null);
+      }).catch(() => {
+        // if any error ocours resolve restaurants from database
+        appDb.getRestaurants()
+          .then(restaurants => callback(null, restaurants))
+          .catch(error => console.error(error));
       });
   }
 
