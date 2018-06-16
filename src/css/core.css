@@ -157,25 +157,4 @@ nav h1 a {
     #breadcrumb {
         width: calc(50% - 80px);
     }
-
-    .inside #map-container {
-        background: blue none repeat scroll 0 0;
-        height: 100%;
-        position: fixed;
-        right: 0;
-        top: 80px;      
-        width: 50%;
-        margin-top: 0;
-    }
-
-    .inside #map {
-        background-color: #ccc;
-        height: 100%;
-        width: 100%;
-        height: 100%;
-    }
-
-    .inside #footer {
-        width: calc(50% - 50px);
-    }
 }
