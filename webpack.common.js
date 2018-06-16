@@ -10,7 +10,10 @@ module.exports = {
     rules: [
       {
         test: /\.html$/,
-        use: 'html-loader',
+        loader: 'html-loader',
+        options: {
+          minimize: true,
+        },
       },
       {
         test: /\.js$/,

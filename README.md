@@ -38,6 +38,10 @@ $ npm run server
 
 With your server running, visit the site: [localhost:4000](http://localhost:4000/) to access the app.
 
+Lighthouse Score:
+
+![lighthouse score](lighthouse-score.png)
+
 <a name="contributors"></a>
 Contributors
 ------------

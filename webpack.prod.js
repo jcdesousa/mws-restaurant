@@ -45,8 +45,8 @@ module.exports = merge(common, {
       canPrint: false,
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+      filename: '[name]-[contenthash].css',
+      chunkFilename: '[id]-[contenthash].css',
     }),
     new BrotliPlugin({
       asset: '[path].br[query]',
