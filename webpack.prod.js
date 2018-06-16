@@ -59,6 +59,7 @@ module.exports = merge(common, {
       filename: 'sw.js',
       minify: true,
       navigateFallback: 'index.html',
+      ignoreUrlParametersMatching: [/./],
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
     }),
     new UglifyJsPlugin({
