@@ -3,6 +3,7 @@ import lozad from 'lozad';
 import '../css/index.css';
 import { GoogleMapsLoader } from './bundle';
 import DBHelper from './dbhelper';
+import heartSvg from '../assets/heart.svg';
 
 const observer = lozad();
 
@@ -107,12 +108,25 @@ const addMarkersToMap = (restaurants = window.restaurants) => {
   mapPlaceholder.style.display = 'none';
 };
 
+function handleFavoriteClick() {
+  this.classList.add('favorite');
+}
+
 /**
  * Create restaurant HTML.
  */
 const createRestaurantHTML = (restaurant, tabIndex) => {
   const restaurantImage = DBHelper.imageForRestaurant(restaurant);
   const li = document.createElement('li');
+
+  const favoriteContainer = document.createElement('div');
+  favoriteContainer.className = 'restaurant-heart';
+
+  favoriteContainer.addEventListener('click', handleFavoriteClick);
+
+  favoriteContainer.innerHTML = heartSvg;
+
+  li.appendChild(favoriteContainer);
 
   const image = document.createElement('img');
   image.className = 'restaurant-img lozad';
@@ -144,6 +158,7 @@ const createRestaurantHTML = (restaurant, tabIndex) => {
 
   return li;
 };
+
 
 /**
  * Create all restaurants HTML and add them to the webpage.

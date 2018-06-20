@@ -26,7 +26,7 @@ module.exports = {
         }],
       },
       {
-        test: /\.(gif|png|jpe?g|svg)$/i,
+        test: /\.(gif|png|jpe?g)$/i,
         use: [
           {
             loader: 'responsive-loader',
@@ -36,7 +36,13 @@ module.exports = {
           }],
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        test: /\.(svg)$/,
+        use: {
+          loader: 'svg-inline-loader',
+        },
+      },
+      {
+        test: /\.(eot|ttf|woff|woff2)$/,
         use: {
           loader: 'file-loader',
           options: {

@@ -51,6 +51,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 #restaurants-list .restaurant-img {
