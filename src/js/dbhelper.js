@@ -1,4 +1,4 @@
-/* global google, fetch */
+/* global google, fetch, window */
 import IdbService from './idb-service';
 
 const appDb = new IdbService();
@@ -39,7 +39,7 @@ export default class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    return `${DBHelper.url}:${DBHelper.port}/restaurants1`;
+    return `${DBHelper.url}:${DBHelper.port}/restaurants`;
   }
 
   /**
@@ -49,9 +49,9 @@ export default class DBHelper {
     return fetch(DBHelper.DATABASE_URL)
       .then((response) => {
         if (response.status === 200) {
-          response.json().then((json) => {
-            appDb.saveRestaurants(json);
-            callback(null, json);
+          response.json().then((restaurants) => {
+            appDb.saveRestaurants(restaurants);
+            callback(null, restaurants);
           }).catch((error) => {
             callback(error, null);
           });
@@ -203,5 +203,27 @@ export default class DBHelper {
       animation: google.maps.Animation.DROP,
     });
     return marker;
+  }
+
+  /**
+   *  Favorite restaurant
+   */
+  static favoriteRestaurant(restaurant) {
+    if (!restaurant) {
+      return null;
+    }
+
+    return fetch(
+      `${DBHelper.DATABASE_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite}`,
+      {
+        method: 'PUT',
+      },
+    )
+      .then(response => response.json())
+      .then((data) => {
+        appDb.saveRestaurants(window.restaurants);
+        return data;
+      })
+      .catch(e => console.error(`${e}: Could not update.`));
   }
 }

@@ -108,8 +108,16 @@ const addMarkersToMap = (restaurants = window.restaurants) => {
   mapPlaceholder.style.display = 'none';
 };
 
-function handleFavoriteClick() {
-  this.classList.add('favorite');
+function handleFavoriteClick(elem, restaurant) {
+  restaurant.is_favorite = restaurant.is_favorite === 'true' ? 'false' : 'true';
+
+  if (restaurant.is_favorite === 'true') {
+    elem.classList.add('favorite');
+  } else {
+    elem.classList.remove('favorite');
+  }
+
+  DBHelper.favoriteRestaurant(restaurant);
 }
 
 /**
@@ -122,7 +130,13 @@ const createRestaurantHTML = (restaurant, tabIndex) => {
   const favoriteContainer = document.createElement('div');
   favoriteContainer.className = 'restaurant-heart';
 
-  favoriteContainer.addEventListener('click', handleFavoriteClick);
+  if (restaurant.is_favorite === 'true') {
+    favoriteContainer.classList.add('favorite');
+  }
+
+  favoriteContainer.addEventListener('click', function () {
+    return handleFavoriteClick(this, restaurant);
+  });
 
   favoriteContainer.innerHTML = heartSvg;
 
