@@ -245,7 +245,7 @@ export default class DBHelper {
     }
 
     return fetch(
-      `${DBHelper.DATABASE_URL}/${DBHelper.REVIEWS_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite}`,
+      `${DBHelper.DATABASE_URL}/${DBHelper.RESTAURANT_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite}`,
       {
         method: 'PUT',
       },
