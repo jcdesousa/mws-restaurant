@@ -1,4 +1,6 @@
 /* global google, fetch, window */
+/* eslint-disable global-require, eqeqeq, import/no-unresolved */
+
 import IdbService from './idb-service';
 
 const appDb = new IdbService();
@@ -39,14 +41,28 @@ export default class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    return `${DBHelper.url}:${DBHelper.port}/restaurants`;
+    return `${DBHelper.url}:${DBHelper.port}`;
+  }
+
+  /**
+   * Restaurant Route
+   */
+  static get RESTAURANT_URL() {
+    return 'restaurants';
+  }
+
+  /**
+   * Reviews Route
+   */
+  static get REVIEWS_URL() {
+    return 'reviews';
   }
 
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    return fetch(DBHelper.DATABASE_URL)
+    return fetch(`${DBHelper.DATABASE_URL}/${DBHelper.RESTAURANT_URL}`)
       .then((response) => {
         if (response.status === 200) {
           response.json().then((restaurants) => {
@@ -175,6 +191,21 @@ export default class DBHelper {
   }
 
   /**
+   * Get restaurant reviews by id from API.
+   */
+  static fetchRestaurantReviewsById(id) {
+    return fetch(`${DBHelper.DATABASE_URL}/${DBHelper.REVIEWS_URL}/?restaurant_id=${id}`)
+      .then(response => response.json())
+      .then((reviews) => {
+        // save reviews on IDB
+        appDb.saveRestaurantReviewsById(id, reviews);
+        console.log(`Reviews data from API for restaurant: ${id}`);
+        console.log(reviews);
+        return reviews;
+      });
+  }
+
+  /**
    * Restaurant page URL.
    */
   static urlForRestaurant(restaurant) {
@@ -182,7 +213,7 @@ export default class DBHelper {
   }
 
   /**
-   * Restaurant image .
+   * Restaurant image
    */
   static imageForRestaurant(restaurant) {
     const imageId = restaurant.photograph ? restaurant.photograph : 'placeholder';
@@ -214,7 +245,7 @@ export default class DBHelper {
     }
 
     return fetch(
-      `${DBHelper.DATABASE_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite}`,
+      `${DBHelper.DATABASE_URL}/${DBHelper.REVIEWS_URL}/${restaurant.id}/?is_favorite=${restaurant.is_favorite}`,
       {
         method: 'PUT',
       },
@@ -225,5 +256,17 @@ export default class DBHelper {
         return data;
       })
       .catch(e => console.error(`${e}: Could not update.`));
+  }
+
+  /**
+   * Get restaurant reviews by id.
+   */
+  static getRestaurantReviewsById(id) {
+    return appDb.getRestaurantReviewsById(id)
+      .then((data) => {
+        console.log(`Got reviews data from cache for restaurant: ${id}`);
+        return data;
+      })
+      .catch(() => DBHelper.getAPIRestaurantReviewsById(id));
   }
 }

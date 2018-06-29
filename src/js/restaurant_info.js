@@ -16,7 +16,7 @@ const createReviewHTML = (review) => {
   li.appendChild(name);
 
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  date.innerHTML = new Date(review.createdAt).toDateString();
   li.appendChild(date);
 
   const rating = document.createElement('p');
@@ -33,7 +33,7 @@ const createReviewHTML = (review) => {
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-const fillReviewsHTML = (reviews = window.restaurant.reviews) => {
+const fillReviewsHTML = (reviews = window.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
@@ -67,7 +67,7 @@ const fillBreadcrumb = (restaurant = window.restaurant) => {
  */
 const fillRestaurantHoursHTML = (operatingHours = window.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
-  for (const key in operatingHours) {
+  for (const key in operatingHours) { // eslint-disable-line no-restricted-syntax, guard-for-in
     const row = document.createElement('tr');
 
     const day = document.createElement('td');
@@ -108,20 +108,42 @@ const fillRestaurantHTML = (restaurant = window.restaurant) => {
   if (restaurant.operating_hours) {
     fillRestaurantHoursHTML();
   }
-  // fill reviews
-  fillReviewsHTML();
 };
 
-/**
+/*
  * Get a parameter by name from page URL.
  */
 const getParameterByName = (name, url = window.location.href) => {
-  const nameSanitized = name.replace(/[\[\]]/g, '\\$&');
+  const nameSanitized = name.replace(/[[\]]/g, '\\$&');
   const regex = new RegExp(`[?&]${nameSanitized}(=([^&#]*)|&|#|$)`);
   const results = regex.exec(url);
   if (!results) { return null; }
   if (!results[2]) { return ''; }
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
+};
+
+/**
+ * Get reviews by id
+ */
+const getRestaurantReviews = (callback) => {
+  if (window.reviews) {
+    callback(null, window.reviews);
+    return;
+  }
+
+  const id = getParameterByName('id');
+  if (!id) {
+    const error = 'Could not get parameter id';
+    callback(error, null);
+  } else {
+    DBHelper.getRestaurantReviewsById(id).then((reviews) => {
+      console.log(reviews);
+      window.reviews = reviews;
+
+      // fill reviews
+      return fillReviewsHTML();
+    }).catch(console.error);
+  }
 };
 
 /**
@@ -143,6 +165,8 @@ const fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
+
+      getRestaurantReviews();
       fillRestaurantHTML();
       callback(null, restaurant);
     });

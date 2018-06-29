@@ -109,7 +109,7 @@ const addMarkersToMap = (restaurants = window.restaurants) => {
 };
 
 function handleFavoriteClick(elem, restaurant) {
-  restaurant.is_favorite = restaurant.is_favorite === 'true' ? 'false' : 'true';
+  restaurant.is_favorite = restaurant.is_favorite === 'true' ? 'false' : 'true'; // eslint-disable-line no-param-reassign
 
   if (restaurant.is_favorite === 'true') {
     elem.classList.add('favorite');

@@ -4,8 +4,9 @@ export default class IDBService {
   constructor() {
     this.openDatabase();
   }
+
   /**
-   * Create IDB if does not exist.
+   * Create IDB if does not exist
    */
   openDatabase() {
     this.dbPromise = idb.open('restaurant-reviews-idb', 1, (upgradeDb) => {
@@ -14,11 +15,19 @@ export default class IDBService {
           keyPath: 'id',
         });
       }
+
+      if (!upgradeDb.objectStoreNames.contains('restaurants-reviews')) {
+        const store = upgradeDb.createObjectStore('restaurants-reviews', {
+          keyPath: 'id',
+        });
+
+        store.createIndex('restaurantID', ['restaurant_id'], { unique: false });
+      }
     });
   }
 
   /**
-   * Get all restaurants
+   * Get all restaurants info
    */
   getRestaurants() {
     return this.dbPromise.then(db => db.transaction('restaurants', 'readonly')
@@ -26,7 +35,9 @@ export default class IDBService {
   }
 
   /**
-   * Get restaurant by id
+   * Get restaurant info by id
+   *
+   * @param  {} id
    */
   getRestaurantById(id) {
     return this.dbPromise.then(db => db.transaction('restaurants', 'readonly')
@@ -34,7 +45,9 @@ export default class IDBService {
   }
 
   /**
-   * Save Restaurants
+   * Save Restaurants in database
+
+   * @param  {} restaurants
    */
   saveRestaurants(restaurants) {
     return this.dbPromise.then((db) => {
@@ -48,5 +61,38 @@ export default class IDBService {
       return tx.complete;
     }).then(() => console.log('Succefully added restaurants to database'))
       .catch(() => console.error('Failed adding restaurants to database'));
+  }
+
+
+  /**
+   * Get restaurant reviews by retaurant id
+   *
+   * @param  {} id
+   */
+  getRestaurantReviewsById(id) {
+    return this.dbPromise.then(db => db.transaction('restaurants-reviews')
+      .objectStore('restaurants-reviews').index('restaurantID').getAll([Number.parseInt(id, 10)]));
+  }
+
+
+  /**
+   * Save all restaurant reviews by id.
+   *
+   * @param  {} id
+   * @param  {} reviews
+   */
+  saveRestaurantReviewsById(id, reviews) {
+    return this.dbPromise.then((db) => {
+      const tx = db.transaction('restaurants-reviews', 'readwrite');
+      const store = tx.objectStore('restaurants-reviews');
+
+
+      for (let i = 0; i < reviews.length; i += 1) {
+        store.put(reviews[i]);
+      }
+
+      return tx.complete;
+    }).then(() => console.log('Succefully added reviews to database'))
+      .catch(err => console.error(err));
   }
 }
