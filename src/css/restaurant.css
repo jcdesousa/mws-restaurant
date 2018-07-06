@@ -1,6 +1,5 @@
-
-
 /* ====================== Restaurant Details ====================== */
+
 .inside header {
     position: fixed;
     top: 0;
@@ -22,7 +21,6 @@
 .inside #footer {
     bottom: 0;
     position: absolute;
-    width: 100%;
 }
 
 #restaurant-name {
@@ -115,33 +113,97 @@
         width: 50%;
         margin-top: 130px;
     }
-
     #reviews-container {
-        width: 50%; 
+        width: 50%;
     }
-
     #reviews-list li {
         width: 90%;
     }
-
     .inside #map-container {
         background: blue none repeat scroll 0 0;
         height: 100%;
         position: fixed;
         right: 0;
-        top: 80px;      
+        top: 80px;
         width: 50%;
         margin-top: 0;
     }
-
     .inside #map {
         background-color: #ccc;
         height: 100%;
         width: 100%;
         height: 100%;
     }
-
     .inside #footer {
         width: calc(50% - 50px);
     }
 }
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-group label {
+    flex: none;
+    display: block;
+    width: 125px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.form-group .input-control {
+    flex: 1 1 auto;
+    display: block;
+    margin-bottom: 10px;
+    margin-right: 8px;
+    padding: 4px;
+    margin-top: -4px;
+}
+
+button {
+    padding: 5px 15px;
+    margin: 5px;
+    min-width: 100px
+}
+
+.rate {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.rate input {
+    display: none;
+}
+
+.rate label {
+    float: right;
+    font-size: 0;
+    color: #d9d9d9;
+    width: auto;
+    padding: 0 10px;
+}
+
+.rate label:before {
+    content: "\f005";
+     font-family: 'Font Awesome 5 Free';
+    font-size: 14px;
+  }
+  
+  .rate label:hover,
+  .rate label:hover ~ label {
+    color: #fcd000;
+    transition: 0.2s;
+  }
+  
+  .rate input:checked ~ label {
+    color: #ccac00;
+  }
+  
+  .rate input:checked ~ label:hover,
+  .rate input:checked ~ label:hover ~ label {
+    color: #fcd000;
+    transition: 0.2s;
+  }

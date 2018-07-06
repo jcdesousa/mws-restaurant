@@ -36,6 +36,9 @@
     "webpack-cli": "^3.0.6"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free": "^5.1.0",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "brotli-webpack-plugin": "^1.0.0",
     "clean-webpack-plugin": "^0.1.19",
     "critical-plugin": "^1.0.6",
@@ -53,6 +56,7 @@
     "normalize.css": "^8.0.0",
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "serve-static": "^1.13.2",
+    "star-rating.js": "^2.1.1",
     "sw-precache-webpack-plugin": "^0.11.5",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.12.0",

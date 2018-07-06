@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals, no-undef */
 const CACHE_NAME = 'restaurant-cache-v1';
 const urlsToCache = [
   '/',
@@ -25,7 +26,7 @@ self.addEventListener('install', (event) => {
     .then((cache) => {
       console.log('Opened cache');
       return cache.addAll(urlsToCache);
-    }) );
+    }));
 });
 
 self.addEventListener('activate', (event) => {

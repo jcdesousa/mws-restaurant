@@ -76,23 +76,19 @@ export default class IDBService {
 
 
   /**
-   * Save all restaurant reviews by id.
+   * Save restaurant review.
    *
-   * @param  {} id
-   * @param  {} reviews
+   * @param  {} review
    */
-  saveRestaurantReviewsById(id, reviews) {
+  saveRestaurantReview(review) {
     return this.dbPromise.then((db) => {
       const tx = db.transaction('restaurants-reviews', 'readwrite');
       const store = tx.objectStore('restaurants-reviews');
 
-
-      for (let i = 0; i < reviews.length; i += 1) {
-        store.put(reviews[i]);
-      }
+      store.put(review);
 
       return tx.complete;
     }).then(() => console.log('Succefully added reviews to database'))
-      .catch(err => console.error(err));
+      .catch(() => console.error('Error saving reviews'));
   }
 }
