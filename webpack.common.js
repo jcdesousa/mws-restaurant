@@ -36,19 +36,20 @@ module.exports = {
           }],
       },
       {
-        test: /\.(svg)$/,
-        use: {
-          loader: 'svg-inline-loader',
-        },
+        test: /heart.svg$/,
+        use: [
+          { loader: 'svg-inline-loader' },
+        ],
       },
       {
-        test: /\.(eot|ttf|woff|woff2)$/,
+        test: /\.(eot|ttf|woff|woff2|svg)$/,
         use: {
           loader: 'file-loader',
           options: {
             name: 'fonts/[name][hash].[ext]',
           },
         },
+        exclude: /heart\.svg$/,
       }],
   },
   plugins: [

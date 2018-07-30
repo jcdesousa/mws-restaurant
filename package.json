@@ -57,6 +57,7 @@
     "optimize-css-assets-webpack-plugin": "^4.0.2",
     "serve-static": "^1.13.2",
     "star-rating.js": "^2.1.1",
+    "svg-loader": "0.0.2",
     "sw-precache-webpack-plugin": "^0.11.5",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.12.0",

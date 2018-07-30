@@ -7,4 +7,4 @@ GoogleMapsLoader.KEY = 'AIzaSyDiRsB2-0W-Xvg4-mntbBG3DHYusvpBeCc';
 
 registerServiceWorker();
 
-export { GoogleMapsLoader };
+export { GoogleMapsLoader }; // eslint-disable-line

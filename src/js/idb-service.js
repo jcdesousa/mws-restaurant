@@ -88,7 +88,9 @@ export default class IDBService {
       store.put(review);
 
       return tx.complete;
-    }).then(() => console.log('Succefully added reviews to database'))
-      .catch(() => console.error('Error saving reviews'));
+    }).then(() => {
+      console.log('Succefully added reviews to database');
+      return review;
+    }).catch(() => console.error('Error saving reviews'));
   }
 }

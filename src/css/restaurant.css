@@ -142,6 +142,7 @@
 .form-group {
     display: flex;
     flex-direction: row;
+    margin-bottom: 10px
 }
 
 .form-group label {
@@ -155,10 +156,8 @@
 .form-group .input-control {
     flex: 1 1 auto;
     display: block;
-    margin-bottom: 10px;
     margin-right: 8px;
     padding: 4px;
-    margin-top: -4px;
 }
 
 button {
@@ -167,43 +166,10 @@ button {
     min-width: 100px
 }
 
-.rate {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
+#reviews-form {
+    width: 80%;
+}
+
+fieldset {
     border: none;
 }
-
-.rate input {
-    display: none;
-}
-
-.rate label {
-    float: right;
-    font-size: 0;
-    color: #d9d9d9;
-    width: auto;
-    padding: 0 10px;
-}
-
-.rate label:before {
-    content: "\f005";
-     font-family: 'Font Awesome 5 Free';
-    font-size: 14px;
-  }
-  
-  .rate label:hover,
-  .rate label:hover ~ label {
-    color: #fcd000;
-    transition: 0.2s;
-  }
-  
-  .rate input:checked ~ label {
-    color: #ccac00;
-  }
-  
-  .rate input:checked ~ label:hover,
-  .rate input:checked ~ label:hover ~ label {
-    color: #fcd000;
-    transition: 0.2s;
-  }

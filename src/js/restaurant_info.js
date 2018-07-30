@@ -12,6 +12,7 @@ class RestaurantInfo {
     this.map = {};
     this.markers = [];
   }
+
   /**
    * Create review HTML and add it to the webpage.
    */
@@ -68,8 +69,8 @@ class RestaurantInfo {
   }
 
   /**
- * Create restaurant operating hours HTML table and add it to the webpage.
- */
+   * Create restaurant operating hours HTML table and add it to the webpage.
+   */
   static fillRestaurantHoursHTML(operatingHours) {
     const hours = document.getElementById('restaurant-hours');
     for (const key in operatingHours) { // eslint-disable-line no-restricted-syntax, guard-for-in
@@ -115,9 +116,9 @@ class RestaurantInfo {
     }
   }
 
-  /*
- * Get a parameter by name from page URL.
- */
+  /**
+   * Get a parameter by name from page URL.
+   */
   static getParameterByName(name, url = window.location.href) {
     const nameSanitized = name.replace(/[[\]]/g, '\\$&');
     const regex = new RegExp(`[?&]${nameSanitized}(=([^&#]*)|&|#|$)`);
@@ -176,27 +177,26 @@ class RestaurantInfo {
     e.preventDefault();
 
     const form = e.target;
-    const restaurant_id = this.restaurant.id; // eslint-disable-line
-
+    const restaurant_id = Number.parseInt(RestaurantInfo.getParameterByName('id'), 10); // eslint-disable-line
+    // eslint-disable-line
     const name = form.name.value;
-    // const rating = form.rating.value;
+    const rating = Number.parseInt(form.rating.value, 10);
     const comments = form.review.value;
     const updatedAt = new Date();
 
-    const review = DBHelper.saveRestaurantReview({
+    DBHelper.saveRestaurantReview({
       restaurant_id,
       name,
-      // rating,
+      rating,
       comments,
       updatedAt,
+    }).then((review) => {
+      const ul = document.getElementById('reviews-list');
+      ul.appendChild(RestaurantInfo.createReviewHTML(review));
+
+      form.reset();
+      return false;
     });
-
-    const ul = document.getElementById('reviews-list');
-    ul.appendChild(RestaurantInfo.createReviewHTML(review));
-
-    form.reset();
-
-    return false;
   }
 }
 
@@ -206,7 +206,10 @@ class RestaurantInfo {
  */
 GoogleMapsLoader.load((google) => {
   const restaurantInfo = new RestaurantInfo();
-  const starRatingControls = new StarRating('.star-rating');
+  const starRatingControls = new StarRating('.star-rating'); // eslint-disable-line
+
+  const form = document.getElementById('reviews-form');
+  form.onsubmit = RestaurantInfo.handleReviewSubmit;
 
   restaurantInfo.fetchRestaurantFromURL()
     .then((restaurant) => {

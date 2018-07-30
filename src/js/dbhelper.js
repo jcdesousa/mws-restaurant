@@ -4,6 +4,7 @@
 import IdbService from './idb-service';
 
 const appDb = new IdbService();
+
 /**
  * Common database helper functions.
  */
@@ -170,7 +171,7 @@ export default class DBHelper {
         const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
         // Remove duplicates from cuisines
         const uniqueCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
-        
+
         return uniqueCuisines;
       });
   }
@@ -183,7 +184,10 @@ export default class DBHelper {
       .then(response => response.json())
       .then((reviews) => {
         // save reviews on IDB
-        appDb.saveRestaurantReview(reviews);
+        for (let i = 0; i < reviews.length; i += 1) {
+          appDb.saveRestaurantReview(reviews[i]);
+        }
+
         console.log(`Reviews data from API for restaurant: ${id}`);
         console.log(reviews);
 
@@ -247,10 +251,10 @@ export default class DBHelper {
   }
 
   /**
-   * Get restaurant reviews by id.
+   * Save restaurant reviews by id.
    */
   static saveRestaurantReview(review) {
-    return fetch(`${DBHelper.DATABASE_URL}/${DBHelper.RESTAURANT_URL}`, {
+    return fetch(`${DBHelper.DATABASE_URL}/${DBHelper.REVIEWS_URL}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
