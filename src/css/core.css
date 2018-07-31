@@ -78,16 +78,6 @@ section {
     text-transform: uppercase;
 }
 
-#map-placeholder {
-    background: url('../assets/images/map-placeholder-2.jpg?size=400');
-    height: 400px;
-    width: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0.2;
-}
-
-
 /* ====================== Navigation ====================== */
 nav {
     width: 100%;

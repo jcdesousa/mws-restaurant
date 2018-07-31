@@ -134,6 +134,12 @@
     }
 }
 
+#map-placeholder img {
+    height: 400px;
+    width: 100%;
+    cursor: pointer;
+}
+
 
 
 /* ====================== Breakpoints ====================== */

@@ -120,7 +120,7 @@
         width: 90%;
     }
     .inside #map-container {
-        background: blue none repeat scroll 0 0;
+        background: white none repeat scroll 0 0;
         height: 100%;
         position: fixed;
         right: 0;
@@ -172,4 +172,13 @@ button {
 
 fieldset {
     border: none;
+}
+
+#map-placeholder {
+    background: url('../assets/images/map-placeholder-2.jpg?size=400');
+    height: 400px;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
 }

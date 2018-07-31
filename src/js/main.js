@@ -114,6 +114,31 @@ class RestaurantsMain {
     DBHelper.favoriteRestaurant(restaurant);
   }
 
+  loadStaticMap() {
+    const staticUrl = ["https://maps.googleapis.com/maps/api/staticmap?center=40.722216,-73.987501&zoom=12&size=636x132&maptype=roadmap&key=AIzaSyDiRsB2-0W-Xvg4-mntbBG3DHYusvpBeCc"];
+    this.restaurants.forEach((restaurant) => {
+      // Add marker to the map
+      const { latlng } = restaurant;
+      if (latlng) {
+        staticUrl.push(`&markers=size:small%7Ccolor:red%7C${latlng.lat},${latlng.lng}`);
+      }
+    });
+
+    const map = document.getElementById('map-placeholder');
+
+    const image = document.createElement('img');
+    image.src = staticUrl.join("");
+    image.alt = `An image of google maps with restaurant markers`;
+    
+    const self = this;
+
+    image.addEventListener('click', function () {
+      self.loadGoogleMap();
+    });
+
+    map.append(image);
+  }
+
   /**
    * Create restaurant HTML.
    */
@@ -174,7 +199,7 @@ class RestaurantsMain {
   fillRestaurantsHTML() {
     let tabIndex = 3;
 
-    this.addMarkersToMap();
+    this.loadStaticMap();
 
     const ul = document.getElementById('restaurants-list');
     this.restaurants.forEach((restaurant) => {
@@ -204,22 +229,31 @@ class RestaurantsMain {
         this.fillRestaurantsHTML(restaurants);
       }).catch(console.error);
   }
-}
 
-/**
+  /**
  * Initialize Google map, called from HTML.
  */
-GoogleMapsLoader.load((google) => {
-  const loc = {
-    lat: 40.722216,
-    lng: -73.987501,
-  };
-  window.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false,
-  });
 
+  loadGoogleMap() {
+    GoogleMapsLoader.load((google) => {
+      const loc = {
+        lat: 40.722216,
+        lng: -73.987501,
+      };
+      window.map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: loc,
+        scrollwheel: false,
+      });
+
+      this.addMarkersToMap();
+    });
+  }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function (event) {
   const restaurantsMain = new RestaurantsMain();
 
   restaurantsMain.fetchNeighborhoods();
