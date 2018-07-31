@@ -192,7 +192,18 @@ export default class DBHelper {
         console.log(reviews);
 
         return reviews;
-      });
+      }).catch(() =>
+        // if any error ocours resolve restaurants reviews from database
+        appDb.getRestaurantReviewsById(id)
+          .catch(error => console.error(error)));
+  }
+
+  /**
+   * Get pending restaurant reviews by restaurant id from database.
+   */
+  static getPendingRestaurantReviewsById(id) {
+    return appDb.getPendingRestaurantReviewsById(id)
+      .catch(error => console.error(error));
   }
 
   /**
@@ -261,6 +272,20 @@ export default class DBHelper {
       },
       body: JSON.stringify(review),
     }).then(response => response.json())
-      .then(data => appDb.saveRestaurantReview(data));
+      .then(data => appDb.saveRestaurantReview(data))
+      .catch(() => appDb.savePendingRestaurantReview(review));
+  }
+
+  /**
+   * Save pending restaurant reviews
+   */
+  static savePendingRestaurantReviews() {
+    return appDb.getPendingRestaurantReviews()
+      .then((pendingReviews) => {
+        for (let i = 0; i < pendingReviews.length; i += 1) {
+          delete pendingReviews[i].id; // eslint-disable-line
+          appDb.saveRestaurantReview(pendingReviews[i]);
+        }
+      });
   }
 }

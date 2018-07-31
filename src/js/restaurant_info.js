@@ -1,4 +1,4 @@
-/* global window, document */
+/* global window, document, navigator */
 import StarRating from 'star-rating.js/';
 import 'star-rating.js/dist/star-rating.css';
 
@@ -140,14 +140,17 @@ class RestaurantInfo {
     if (!id) {
       throw new Error('Could not get parameter id');
     } else {
-      return DBHelper.fetchRestaurantReviewsById(id)
-        .then((reviews) => {
-          console.log(reviews);
-          this.reviews = reviews;
+      return Promise.all([
+        DBHelper.fetchRestaurantReviewsById(id),
+        DBHelper.getPendingRestaurantReviewsById(id),
+      ]).then(([reviews, pendingReviews]) => {
+        console.log(reviews);
+        this.reviews = reviews;
 
-          // fill reviews
-          return RestaurantInfo.fillReviewsHTML(this.reviews);
-        }).catch(console.error);
+        // fill reviews
+        RestaurantInfo.fillReviewsHTML(this.reviews);
+        RestaurantInfo.fillReviewsHTML(pendingReviews);
+      }).catch(console.error);
     }
   }
 
@@ -228,4 +231,17 @@ GoogleMapsLoader.load((google) => {
       mapPlaceholder.style.display = 'none';
     })
     .catch(console.err);
+});
+
+
+window.addEventListener('load', () => {
+  function updateOnlineStatus() {
+    if (navigator.onLine) {
+      // handle online status
+      DBHelper.savePendingRestaurantReviews();
+      console.log('online');
+    }
+  }
+
+  window.addEventListener('online', updateOnlineStatus);
 });
