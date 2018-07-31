@@ -185,14 +185,14 @@ class RestaurantInfo {
     const name = form.name.value;
     const rating = Number.parseInt(form.rating.value, 10);
     const comments = form.review.value;
-    const updatedAt = new Date();
+    const createdAt = Date.now();
 
     DBHelper.saveRestaurantReview({
       restaurant_id,
       name,
       rating,
       comments,
-      updatedAt,
+      createdAt,
     }).then((review) => {
       const ul = document.getElementById('reviews-list');
       ul.appendChild(RestaurantInfo.createReviewHTML(review));
