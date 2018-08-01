@@ -21,6 +21,7 @@
 .inside #footer {
     bottom: 0;
     position: absolute;
+    min-width: calc(100% - 50px);
 }
 
 #restaurant-name {
