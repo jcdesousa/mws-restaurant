@@ -284,7 +284,7 @@ export default class DBHelper {
       .then((pendingReviews) => {
         for (let i = 0; i < pendingReviews.length; i += 1) {
           delete pendingReviews[i].id; // eslint-disable-line
-          appDb.saveRestaurantReview(pendingReviews[i]);
+          this.saveRestaurantReview(pendingReviews[i]);
         }
       });
   }
