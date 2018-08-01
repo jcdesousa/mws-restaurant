@@ -129,7 +129,7 @@ export default class IDBService {
    * @param  {} id
    */
   clearPendingRestaurantReviews() {
-    return this.dbPromise.then(db => dbe.transaction('restaurants-reviews-pending', 'readwrite')
+    return this.dbPromise.then(db => db.transaction('restaurants-reviews-pending', 'readwrite')
       .objectStore('restaurants-reviews-pending').clear());
   }
   /**
