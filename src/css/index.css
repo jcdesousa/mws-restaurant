@@ -136,8 +136,8 @@
 }
 
 #map-placeholder img {
-    height: 400px;
-    width: auto;
+    height: auto;
+    width: 100%;
     cursor: pointer;
 }
 
